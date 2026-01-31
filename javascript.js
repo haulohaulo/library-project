@@ -23,11 +23,15 @@ function addBookToLibrary(title, author, pages, readOrNot) {
 }
 
 
+
 function displayBooks() {
-  for (book in myLibrary) {
+  for (let i = 0; i < myLibrary.length; i++) {
     let bookDisplay = document.createElement("div");
     bookDisplay.className = "card";
     textContainer.appendChild(bookDisplay);
+    bookDisplay.textContent = `${myLibrary[i].title}` + ' '+ `${myLibrary[i].author}` + ` `
+     + `${myLibrary[i].pages}` + ` ` + `${myLibrary[i].readOrNot}`
+    
   }
 }
 
@@ -36,4 +40,6 @@ addBookToLibrary('title2', 'author2', 'pages2', 'not read')
 addBookToLibrary('title3', 'author3', 'pages3', 'not read')
 
 
+
 displayBooks();
+
