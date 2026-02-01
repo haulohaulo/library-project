@@ -1,3 +1,11 @@
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -12,3 +20,24 @@
 }
 
 
+::backdrop {
+    background-color: yellowgreen;
+    opacity: 0.75;
+}
+
+
+dialog > div {
+    display: grid;
+    
+    
+    gap: 10px;
+    
+}
+
+input {
+    width: 100%;
+}
+
+.close {
+    margin-top: 20px;
+}

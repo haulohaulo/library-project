@@ -1,6 +1,19 @@
 let textContainer = document.querySelector(".container")
+const addButton = document.querySelector(".addBook")
+const closeButton = document.querySelector(".close")
+const dialog = document.querySelector("dialog")
 
 const myLibrary = [];
+
+
+
+addButton.addEventListener("click", () => {
+  dialog.showModal();
+})
+
+closeButton.addEventListener("click", () => {
+  dialog.close();
+})
 
 function Book(title, author, pages, readOrNot) {
     if (!new.target) {
@@ -34,6 +47,8 @@ function displayBooks() {
     
   }
 }
+
+
 
 addBookToLibrary('title1', 'author1', 'pages1', 'read')
 addBookToLibrary('title2', 'author2', 'pages2', 'not read')
