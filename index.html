@@ -10,7 +10,7 @@
 <body>
     
     <dialog>
-        <div>
+        <form id="myForm">
             <legend>Add a new book below</legend>
             <div>
                 <label for="title">Title</label>
@@ -18,20 +18,18 @@
             </div>
             <div>
                 <label for="author">Author</label>
-                <input type="text" id="author" name="title">
+                <input type="text" id="author" name="author">
             </div>
             <div>
                 <label for="pages">Number of Pages</label>
-                <input type="text" id="pages" name="title">
+                <input type="text" id="pages" name="pages">
             </div>
             <div>
                 <label for="readOrNot">Read?</label>
-                <input type="text" id="readOrNot" name="title">
+                <input type="text" id="readOrNot" name="readOrNot">
             </div>
-            <button type="submit">Submit</button>
-
-            
-        </div>
+            <button class="submit" type="submit">Submit</button>
+        </form>
         
         <button class="close">Close</button>
     </dialog>
