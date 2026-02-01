@@ -3,36 +3,27 @@ const addButton = document.querySelector(".addBook")
 const closeButton = document.querySelector(".close")
 const dialog = document.querySelector("dialog")
 const form = document.getElementById("myForm");
-
-
 const myLibrary = [];
-
-
 
 addButton.addEventListener("click", () => {
   dialog.showModal();
 })
 
+closeButton.addEventListener("click", () => {
+  dialog.close();
+})
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-
 
   const title = form.title.value;
   const author = form.author.value;
   const pages = form.pages.value;
   const readOrNot = form.readOrNot.value;
-
   
   addBookToLibrary(title, author, pages, readOrNot);
-  console.log(myLibrary);
-  
-  displayNewBook();
-
+ 
 });
-
-closeButton.addEventListener("click", () => {
-  dialog.close();
-})
 
 function Book(title, author, pages, readOrNot) {
     if (!new.target) {
@@ -49,23 +40,9 @@ function Book(title, author, pages, readOrNot) {
 }
 
 function addBookToLibrary(title, author, pages, readOrNot) {
-  
   const newBook = new Book(title, author, pages, readOrNot);
   myLibrary.push(newBook);
-}
-
-
-
-function displayInitialBooks() {
-  
-  for (let i = 0; i < myLibrary.length; i++) {
-    let bookDisplay = document.createElement("div");
-    bookDisplay.className = "card";
-    textContainer.appendChild(bookDisplay);
-    bookDisplay.textContent = `${myLibrary[i].title}` + ' '+ `${myLibrary[i].author}` + ` `
-     + `${myLibrary[i].pages}` + ` ` + `${myLibrary[i].readOrNot}`
-    
-  }
+  displayNewBook();
 }
 
 function displayNewBook() {
@@ -77,11 +54,10 @@ function displayNewBook() {
 }
 
 
+
 addBookToLibrary('title1', 'author1', 'pages1', 'read')
 addBookToLibrary('title2', 'author2', 'pages2', 'not read')
 addBookToLibrary('title3', 'author3', 'pages3', 'not read')
 
-
-displayInitialBooks();
 
 
