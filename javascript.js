@@ -3,22 +3,21 @@ const addButton = document.querySelector(".addBook");
 const closeButton = document.querySelector(".close");
 const dialog = document.querySelector("dialog");
 const form = document.getElementById("myForm");
-const deleteButtons = document.querySelectorAll("button.delete");
 const myLibrary = [];
 
 
 
 
 window.addEventListener("DOMContentLoaded", function(event){
-  addButton.addEventListener("click", (e) => {
+  addButton.addEventListener("click", () => {
     dialog.showModal();
   })
 
-  closeButton.addEventListener("click", (e) => {
+  closeButton.addEventListener("click", () => {
     dialog.close();
   })
 
-  form.addEventListener("submit", function (e) {
+  form.addEventListener("submit", function () {
     e.preventDefault();
 
     const title = form.title.value;
@@ -30,14 +29,25 @@ window.addEventListener("DOMContentLoaded", function(event){
   
   });
 
-  document.querySelectorAll('button.delete').forEach(el => {
-    el.onclick = () => deleteItem(el);
+  document.querySelectorAll('button.delete').forEach(button => {
+    button.addEventListener('click', () => {
+      button.parentElement.remove();
+      const bookID = button.parentElement.dataset.indexNumber;
+      
+      
+      for (let i = 0; i < myLibrary.length; i++) {
+        if (myLibrary[i].id == bookID) {
+          myLibrary.splice(i, 1);
+        }
+      }
+      
+      
+      
+    })
+    
   })
 });
 
-function deleteItem(e) {
-  e.parentElement.remove();
-}
 
 function Book(title, author, pages, readOrNot) {
     if (!new.target) {
