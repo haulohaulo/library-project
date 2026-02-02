@@ -1,29 +1,43 @@
-let textContainer = document.querySelector(".container")
-const addButton = document.querySelector(".addBook")
-const closeButton = document.querySelector(".close")
-const dialog = document.querySelector("dialog")
+let textContainer = document.querySelector(".container");
+const addButton = document.querySelector(".addBook");
+const closeButton = document.querySelector(".close");
+const dialog = document.querySelector("dialog");
 const form = document.getElementById("myForm");
+const deleteButtons = document.querySelectorAll("button.delete");
 const myLibrary = [];
 
-addButton.addEventListener("click", () => {
-  dialog.showModal();
-})
 
-closeButton.addEventListener("click", () => {
-  dialog.close();
-})
 
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
 
-  const title = form.title.value;
-  const author = form.author.value;
-  const pages = form.pages.value;
-  const readOrNot = form.readOrNot.value;
+window.addEventListener("DOMContentLoaded", function(event){
+  addButton.addEventListener("click", (e) => {
+    dialog.showModal();
+  })
+
+  closeButton.addEventListener("click", (e) => {
+    dialog.close();
+  })
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const title = form.title.value;
+    const author = form.author.value;
+    const pages = form.pages.value;
+    const readOrNot = form.readOrNot.value;
+    
+    addBookToLibrary(title, author, pages, readOrNot);
   
-  addBookToLibrary(title, author, pages, readOrNot);
- 
+  });
+
+  document.querySelectorAll('button.delete').forEach(el => {
+    el.onclick = () => deleteItem(el);
+  })
 });
+
+function deleteItem(e) {
+  e.parentElement.remove();
+}
 
 function Book(title, author, pages, readOrNot) {
     if (!new.target) {
@@ -47,11 +61,20 @@ function addBookToLibrary(title, author, pages, readOrNot) {
 
 function displayNewBook() {
   let bookDisplay = document.createElement("div");
-  bookDisplay.className = "card";
-  textContainer.appendChild(bookDisplay);
   var newBook  = myLibrary[myLibrary.length - 1];
+  bookDisplay.className = "card";
+  bookDisplay.dataset.indexNumber = newBook.id;
+  textContainer.appendChild(bookDisplay);
   bookDisplay.textContent = newBook.title + ` ` + newBook.author + ` ` + newBook.pages + ` ` + newBook.readOrNot; 
+
+  let removeButton = document.createElement("button");
+  removeButton.className = "delete";
+  removeButton.textContent = "Delete";
+  bookDisplay.appendChild(removeButton);
 }
+
+
+
 
 
 
