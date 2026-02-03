@@ -3,7 +3,11 @@ const addButton = document.querySelector(".addBook");
 const closeButton = document.querySelector(".close");
 const dialog = document.querySelector("dialog");
 const form = document.getElementById("myForm");
+const deleteButtons = document.querySelectorAll(".delete");
 const myLibrary = [];
+
+
+
 
 function Book(title, author, pages, readOrNot) {
     if (!new.target) {
@@ -26,6 +30,7 @@ Book.prototype.read = function() {
 function addBookToLibrary(title, author, pages, readOrNot) {
   const newBook = new Book(title, author, pages, readOrNot);
   myLibrary.push(newBook);
+  console.log(myLibrary);
   displayNewBook();
 }
 
@@ -55,8 +60,7 @@ function displayNewBook() {
 
 
 
-
-window.addEventListener("DOMContentLoaded", function(event){
+window.addEventListener("DOMContentLoaded", (event) => {
   addButton.addEventListener("click", () => {
     dialog.showModal();
   })
@@ -65,7 +69,7 @@ window.addEventListener("DOMContentLoaded", function(event){
     dialog.close();
   })
 
-  form.addEventListener("submit", function () {
+  form.addEventListener("submit", function (e) {
     e.preventDefault();
 
     const title = form.title.value;
@@ -74,26 +78,28 @@ window.addEventListener("DOMContentLoaded", function(event){
     const readOrNot = form.readOrNot.value;
     
     addBookToLibrary(title, author, pages, readOrNot);
-  
+
   });
 
-  document.querySelectorAll('button.delete').forEach(button => {
+  document.querySelectorAll(".delete").forEach((button) => {
     button.addEventListener('click', () => {
-      button.parentElement.remove();
+      console.log("delete clicked");
       const bookID = button.parentElement.dataset.id;
+      button.parentElement.remove();
       
       
       for (let i = 0; i < myLibrary.length; i++) {
         if (myLibrary[i].id == bookID) {
           myLibrary.splice(i, 1);
+          console.log(myLibrary);
         }
       }
     })
-    
   })
 
   document.querySelectorAll(".read-button").forEach(button => {
     button.addEventListener('click', () => {
+      console.log("read clicked");
       const bookContainer = button.parentElement;
       const bookID = button.parentElement.dataset.id;
       for (let i = 0; i < myLibrary.length; i++) {
@@ -101,14 +107,15 @@ window.addEventListener("DOMContentLoaded", function(event){
           myLibrary[i].read();
           console.log(myLibrary[i]);
           document.querySelector(`[data-id="${bookID}"] .text-container`).textContent = "read";
-          
-          
-
         }
       }
     })
   })
-});
+
+})
+
+
+
 
 
 addBookToLibrary('title1', 'author1', 'pages1', 'read')
