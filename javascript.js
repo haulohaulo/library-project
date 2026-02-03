@@ -1,4 +1,4 @@
-let textContainer = document.querySelector(".container");
+let container = document.querySelector(".container");
 const addButton = document.querySelector(".addBook");
 const closeButton = document.querySelector(".close");
 const dialog = document.querySelector("dialog");
@@ -30,12 +30,17 @@ function addBookToLibrary(title, author, pages, readOrNot) {
 }
 
 function displayNewBook() {
+  
   let bookDisplay = document.createElement("div");
   var newBook  = myLibrary[myLibrary.length - 1];
   bookDisplay.className = "card";
-  bookDisplay.dataset.indexNumber = newBook.id;
-  textContainer.appendChild(bookDisplay);
-  bookDisplay.textContent = newBook.title + ` ` + newBook.author + ` ` + newBook.pages + ` ` + newBook.readOrNot; 
+  bookDisplay.dataset.id = newBook.id;
+  container.appendChild(bookDisplay);
+
+  let textContainer = document.createElement("div");
+  textContainer.className = "text-container";
+  bookDisplay.appendChild(textContainer);
+  textContainer.textContent = newBook.title + ` ` + newBook.author + ` ` + newBook.pages + ` ` + newBook.readOrNot; 
 
   let read = document.createElement("button");
   read.className = "read-button";
@@ -75,7 +80,7 @@ window.addEventListener("DOMContentLoaded", function(event){
   document.querySelectorAll('button.delete').forEach(button => {
     button.addEventListener('click', () => {
       button.parentElement.remove();
-      const bookID = button.parentElement.dataset.indexNumber;
+      const bookID = button.parentElement.dataset.id;
       
       
       for (let i = 0; i < myLibrary.length; i++) {
@@ -89,10 +94,14 @@ window.addEventListener("DOMContentLoaded", function(event){
 
   document.querySelectorAll(".read-button").forEach(button => {
     button.addEventListener('click', () => {
-      const bookID = button.parentElement.dataset.indexNumber;
+      const bookContainer = button.parentElement;
+      const bookID = button.parentElement.dataset.id;
       for (let i = 0; i < myLibrary.length; i++) {
         if (myLibrary[i].id == bookID) {
           myLibrary[i].read();
+          console.log(myLibrary[i]);
+          document.querySelector(`[data-id="${bookID}"] .text-container`).textContent = "read";
+          
           
 
         }
