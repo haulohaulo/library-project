@@ -8,10 +8,11 @@ const myLibrary = [];
 
 
 
-function Book(title, author, pages, readOrNot) {
-    if (!new.target) {
-        throw Error("You must use the 'new' operator to call the constructor");
-    }
+class Book {
+  /* if (!new.target) {
+      throw Error("You must use the 'new' operator to call the constructor");
+  } */
+  constructor(title, author, pages, readOrNot, id) {
     this.title = title;
     this.author = author;
     this.pages = pages;
@@ -19,11 +20,9 @@ function Book(title, author, pages, readOrNot) {
     this.id = crypto.randomUUID();
     this.info = function() {
       console.log(this.title + ", " + this.author + ", " + this.pages + ", " + this.readOrNot)
-    };
-}
-
-Book.prototype.read = function() {
-  this.readOrNot = "read";
+    }
+  }
+  
 }
 
 function addBookToLibrary(title, author, pages, readOrNot) {
@@ -31,6 +30,7 @@ function addBookToLibrary(title, author, pages, readOrNot) {
   myLibrary.push(newBook);
   console.log(myLibrary);
   displayNewBook();
+  newBookAdded();
 }
 
 function displayNewBook() {
@@ -56,7 +56,7 @@ function displayNewBook() {
   removeButton.textContent = "Delete";
   bookDisplay.appendChild(removeButton);
 
-  newBookAdded();
+  
 }
 
 
@@ -108,11 +108,10 @@ window.addEventListener('newEntry', function (e) {
   console.log("a button")
   button.addEventListener('click', () => {
     console.log("read clicked");
-    const bookContainer = button.parentElement;
     const bookID = button.parentElement.dataset.id;
     for (let i = 0; i < myLibrary.length; i++) {
       if (myLibrary[i].id == bookID) {
-        myLibrary[i].read();
+        myLibrary[i].readOrNot = "Read";
         console.log(myLibrary[i]);
         document.querySelector(`[data-id="${bookID}"] .text-container`).textContent = "read";
       }
